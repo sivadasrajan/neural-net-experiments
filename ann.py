@@ -33,6 +33,17 @@ class Node:
         self.output = activation_sigmoid(self.total_input)
         return self.output
 
+class ErrorFunction:
+    def error(self,target,computed):
+        pass
+    def derivative(self,target,computed):
+        pass
+class MeanSquare(ErrorFunction):
+    def error(self, target, computed):
+        return 0.5 * (math.pow(target-computed,2))
+    def derivative(self, target, computed):
+        return target - computed
+
 class Network:
     def __init__(self):
         pass
@@ -90,9 +101,11 @@ class Network:
             for j,node in enumerate(current_layer):
                 node.update_output()
         
-
+        return self.network[len(self.network) - 1][0].output
 
 x  = Network()
-x.buildNetwork([2,2,1])
-x.forward_propagate([5,5])
-x.print_network()
+x.buildNetwork([2,2])
+x.print_network() 
+print(x.forward_propagate([5,5]))
+x.print_network() 
+
